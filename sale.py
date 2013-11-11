@@ -63,8 +63,10 @@ class SaleLine:
         res = super(SaleLine, self).on_change_product()
         if 'unit_price' in res:
             self.gross_unit_price = res['unit_price']
-            self.discount
+            self.discount = Decimal(0)
             res.update(self.update_prices())
+        if not 'discount' in res:
+            res['discount'] = Decimal(0)
         return res
 
     def get_invoice_line(self, invoice_type):
@@ -73,3 +75,16 @@ class SaleLine:
             line.gross_unit_price = self.gross_unit_price
             line.discount = self.discount
         return lines
+
+    @classmethod
+    def create(cls, vlist):
+        vlist = [x.copy() for x in vlist]
+        for vals in vlist:
+            if not 'gross_unit_price' in vals:
+                unit_price = vals.get('unit_price')
+                if 'discount' in vals:
+                    unit_price = unit_price*(1+vals.get('discount'))
+                vals['gross_unit_price'] = unit_price
+            if not 'discount' in vals:
+                vals['discount'] = Decimal(0)
+        return super(SaleLine, cls).create(vlist)
