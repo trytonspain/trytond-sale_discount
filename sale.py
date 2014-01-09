@@ -2,8 +2,9 @@ from decimal import Decimal
 from trytond.model import fields
 from trytond.pool import PoolMeta
 from trytond.pyson import Eval
+from trytond.modules.sale.sale import SaleReport
 
-__all__ = ['SaleLine']
+__all__ = ['SaleLine', 'SaleReport']
 __metaclass__ = PoolMeta
 
 STATES = {
@@ -40,11 +41,11 @@ class SaleLine:
         unit_price = None
         gross_unit_price = self.gross_unit_price
         if self.gross_unit_price is not None and self.discount is not None:
-            unit_price = self.gross_unit_price * (1-self.discount)
+            unit_price = self.gross_unit_price * (1 - self.discount)
             digits = self.__class__.unit_price.digits[1]
             unit_price = unit_price.quantize(Decimal(str(10.0 ** -digits)))
 
-            gross_unit_price = unit_price / (1-self.discount)
+            gross_unit_price = unit_price / (1 - self.discount)
             digits = self.__class__.gross_unit_price.digits[1]
             gross_unit_price = gross_unit_price.quantize(
                 Decimal(str(10.0 ** -digits)))
@@ -83,8 +84,12 @@ class SaleLine:
             if not 'gross_unit_price' in vals:
                 unit_price = vals.get('unit_price')
                 if 'discount' in vals:
-                    unit_price = unit_price*(1+vals.get('discount'))
+                    unit_price = unit_price * (1 + vals.get('discount'))
                 vals['gross_unit_price'] = unit_price
             if not 'discount' in vals:
                 vals['discount'] = Decimal(0)
         return super(SaleLine, cls).create(vlist)
+
+
+class SaleReport(SaleReport):
+    __name__ = 'sale.sale.discount'
