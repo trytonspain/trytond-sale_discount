@@ -45,7 +45,8 @@ class SaleLine:
             digits = self.__class__.unit_price.digits[1]
             unit_price = unit_price.quantize(Decimal(str(10.0 ** -digits)))
 
-            gross_unit_price = unit_price / (1 - self.discount)
+            if self.discount != 1:
+                gross_unit_price = unit_price / (1 - self.discount)
             digits = self.__class__.gross_unit_price.digits[1]
             gross_unit_price = gross_unit_price.quantize(
                 Decimal(str(10.0 ** -digits)))
