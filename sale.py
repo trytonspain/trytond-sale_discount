@@ -35,7 +35,6 @@ class SaleLine:
         if not 'discount' in cls.quantity.on_change:
             cls.quantity.on_change.append('discount')
 
-
     @staticmethod
     def default_discount():
         return Decimal(0)
