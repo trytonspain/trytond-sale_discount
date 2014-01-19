@@ -205,7 +205,7 @@ Create an Inventory::
     >>> inventory.state
     u'done'
 
-Sale 5 products::
+Sale 5 products testing several on_change calls and avoiding division by zero::
 
     >>> config.user = sale_user.id
     >>> Sale = Model.get('sale.sale')
@@ -217,8 +217,14 @@ Sale 5 products::
     >>> sale_line = SaleLine()
     >>> sale.lines.append(sale_line)
     >>> sale_line.product = product
-    >>> sale_line.quantity = 2.0
+    >>> sale_line.quantity = 1.0
+    >>> sale_line.discount = Decimal('1')
+    >>> sale_line.amount == Decimal('0.0')
+    True
     >>> sale_line.discount = Decimal('0.12')
+    >>> sale_line.amount == Decimal('8.8')
+    True
+    >>> sale_line.quantity = 2.0
     >>> sale_line.amount == Decimal('17.6')
     True
     >>> sale_line = SaleLine()

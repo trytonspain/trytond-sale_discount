@@ -32,6 +32,9 @@ class SaleLine:
             cls.amount.on_change_with.append('discount')
         if not 'gross_unit_price' in cls.amount.on_change_with:
             cls.amount.on_change_with.append('gross_unit_price')
+        if not 'discount' in cls.quantity.on_change:
+            cls.quantity.on_change.append('discount')
+
 
     @staticmethod
     def default_discount():
@@ -69,6 +72,13 @@ class SaleLine:
             res.update(self.update_prices())
         if not 'discount' in res:
             res['discount'] = Decimal(0)
+        return res
+
+    def on_change_quantity(self):
+        res = super(SaleLine, self).on_change_quantity()
+        if 'unit_price' in res:
+            self.gross_unit_price = res['unit_price']
+            res.update(self.update_prices())
         return res
 
     def get_invoice_line(self, invoice_type):
