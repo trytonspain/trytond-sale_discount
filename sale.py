@@ -28,6 +28,8 @@ class SaleLine:
         cls.unit_price.digits = (20, 8)
         if not 'discount' in cls.product.on_change:
             cls.product.on_change.append('discount')
+        if not 'discount' in cls.unit.on_change:
+            cls.unit.on_change.append('discount')
         if not 'discount' in cls.amount.on_change_with:
             cls.amount.on_change_with.append('discount')
         if not 'gross_unit_price' in cls.amount.on_change_with:
