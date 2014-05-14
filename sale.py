@@ -3,6 +3,8 @@ from trytond.model import fields
 from trytond.pool import PoolMeta
 from trytond.pyson import Eval
 from trytond.modules.sale.sale import SaleReport
+from trytond.config import CONFIG
+DIGITS = int(CONFIG.get('unit_price_digits', 4))
 
 __all__ = ['SaleLine', 'SaleReport']
 __metaclass__ = PoolMeta
@@ -16,7 +18,7 @@ STATES = {
 class SaleLine:
     __name__ = 'sale.line'
 
-    gross_unit_price = fields.Numeric('Gross Price', digits=(16, 4),
+    gross_unit_price = fields.Numeric('Gross Price', digits=(16, DIGITS),
         states=STATES, on_change=['gross_unit_price', 'discount'])
     discount = fields.Numeric('Discount', digits=(16, 4), states=STATES,
         on_change=['gross_unit_price', 'discount'])
