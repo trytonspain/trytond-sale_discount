@@ -19,9 +19,8 @@ class SaleLine:
     __name__ = 'sale.line'
 
     gross_unit_price = fields.Numeric('Gross Price', digits=(16, DIGITS),
-        states=STATES, on_change=['gross_unit_price', 'discount'])
-    discount = fields.Numeric('Discount', digits=(16, 4), states=STATES,
-        on_change=['gross_unit_price', 'discount'])
+        states=STATES)
+    discount = fields.Numeric('Discount', digits=(16, 4), states=STATES)
 
     @classmethod
     def __setup__(cls):
@@ -29,15 +28,15 @@ class SaleLine:
         cls.unit_price.states['readonly'] = True
         cls.unit_price.digits = (20, 8)
         if not 'discount' in cls.product.on_change:
-            cls.product.on_change.append('discount')
+            cls.product.on_change.add('discount')
         if not 'discount' in cls.unit.on_change:
-            cls.unit.on_change.append('discount')
+            cls.unit.on_change.add('discount')
         if not 'discount' in cls.amount.on_change_with:
-            cls.amount.on_change_with.append('discount')
+            cls.amount.on_change_with.add('discount')
         if not 'gross_unit_price' in cls.amount.on_change_with:
-            cls.amount.on_change_with.append('gross_unit_price')
+            cls.amount.on_change_with.add('gross_unit_price')
         if not 'discount' in cls.quantity.on_change:
-            cls.quantity.on_change.append('discount')
+            cls.quantity.on_change.add('discount')
 
     @staticmethod
     def default_discount():
@@ -61,9 +60,11 @@ class SaleLine:
             'unit_price': unit_price,
             }
 
+    @fields.depends('gross_unit_price', 'discount')
     def on_change_gross_unit_price(self):
         return self.update_prices()
 
+    @fields.depends('gross_unit_price', 'discount')
     def on_change_discount(self):
         return self.update_prices()
 
