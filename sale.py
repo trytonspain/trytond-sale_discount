@@ -5,6 +5,7 @@ from trytond.pyson import Eval
 from trytond.modules.sale.sale import SaleReport
 from trytond.config import CONFIG
 DIGITS = int(CONFIG.get('unit_price_digits', 4))
+DISCOUNT_DIGITS = int(CONFIG.get('discount_digits', 4))
 
 __all__ = ['SaleLine', 'SaleReport']
 __metaclass__ = PoolMeta
@@ -20,13 +21,14 @@ class SaleLine:
 
     gross_unit_price = fields.Numeric('Gross Price', digits=(16, DIGITS),
         states=STATES)
-    discount = fields.Numeric('Discount', digits=(16, 4), states=STATES)
+    discount = fields.Numeric('Discount', digits=(16, DISCOUNT_DIGITS),
+        states=STATES)
 
     @classmethod
     def __setup__(cls):
         super(SaleLine, cls).__setup__()
         cls.unit_price.states['readonly'] = True
-        cls.unit_price.digits = (20, 8)
+        cls.unit_price.digits = (20, DIGITS + DISCOUNT_DIGITS)
         if not 'discount' in cls.product.on_change:
             cls.product.on_change.add('discount')
         if not 'discount' in cls.unit.on_change:
