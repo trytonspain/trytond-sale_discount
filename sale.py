@@ -33,15 +33,15 @@ class SaleLine:
         super(SaleLine, cls).__setup__()
         cls.unit_price.states['readonly'] = True
         cls.unit_price.digits = (20, DIGITS + DISCOUNT_DIGITS)
-        if not 'discount' in cls.product.on_change:
+        if 'discount' not in cls.product.on_change:
             cls.product.on_change.add('discount')
-        if not 'discount' in cls.unit.on_change:
+        if 'discount' not in cls.unit.on_change:
             cls.unit.on_change.add('discount')
-        if not 'discount' in cls.amount.on_change_with:
+        if 'discount' not in cls.amount.on_change_with:
             cls.amount.on_change_with.add('discount')
-        if not 'gross_unit_price' in cls.amount.on_change_with:
+        if 'gross_unit_price' not in cls.amount.on_change_with:
             cls.amount.on_change_with.add('gross_unit_price')
-        if not 'discount' in cls.quantity.on_change:
+        if 'discount' not in cls.quantity.on_change:
             cls.quantity.on_change.add('discount')
 
     @staticmethod
@@ -80,7 +80,7 @@ class SaleLine:
             self.gross_unit_price = res['unit_price']
             self.discount = Decimal(0)
             res.update(self.update_prices())
-        if not 'discount' in res:
+        if 'discount' not in res:
             res['discount'] = Decimal(0)
         return res
 
@@ -102,12 +102,14 @@ class SaleLine:
     def create(cls, vlist):
         vlist = [x.copy() for x in vlist]
         for vals in vlist:
-            if not 'gross_unit_price' in vals:
-                unit_price = vals.get('unit_price')
-                if 'discount' in vals:
-                    unit_price = unit_price * (1 + vals.get('discount'))
-                vals['gross_unit_price'] = unit_price
-            if not 'discount' in vals:
+            gross_unit_price = vals.get('unit_price', Decimal('0.0'))
+            if 'discount' in vals and vals['discount'] != 1:
+                gross_unit_price = gross_unit_price / (1 - vals['discount'])
+                digits = cls.unit_price.digits[1]
+                gross_unit_price = gross_unit_price.quantize(
+                    Decimal(str(10.0 ** -digits)))
+            vals['gross_unit_price'] = gross_unit_price
+            if 'discount' not in vals:
                 vals['discount'] = Decimal(0)
         return super(SaleLine, cls).create(vlist)
 
