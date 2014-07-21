@@ -102,7 +102,7 @@ class SaleLine:
     def create(cls, vlist):
         vlist = [x.copy() for x in vlist]
         for vals in vlist:
-            if vals.get('type') != 'line':
+            if vals.get('type', 'line') != 'line':
                 continue
             gross_unit_price = vals.get('unit_price', Decimal('0.0'))
             if 'discount' in vals and vals['discount'] != 1:
