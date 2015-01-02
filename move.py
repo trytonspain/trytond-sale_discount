@@ -18,3 +18,6 @@ class Move:
     def __setup__(cls):
         super(Move, cls).__setup__()
         cls.unit_price.digits = (20, DIGITS + DISCOUNT_DIGITS)
+        #Compatibility with purchase_shipment_cost
+        if hasattr(cls, 'unit_shipment_cost'):
+            cls.unit_shipment_cost.digits = cls.unit_price.digits
