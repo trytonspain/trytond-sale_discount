@@ -2,6 +2,22 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "error:sale.apply_sale_discount:"
+msgid ""
+"You cannot change the applied discount to sale \"%s\" because it isn't in "
+"Draft state."
+msgstr ""
+"No puede cambiar el el descuento aplicado a la venta \"%s\" porque no se "
+"encuentra en estado borrador."
+
+msgctxt "field:sale.apply_sale_discount.start,discount:"
+msgid "Sale's Global Discount"
+msgstr "Descuento global por venta"
+
+msgctxt "field:sale.apply_sale_discount.start,id:"
+msgid "ID"
+msgstr "Identificador"
+
 msgctxt "field:sale.line,discount:"
 msgid "Discount"
 msgstr "Descuento"
@@ -10,9 +26,25 @@ msgctxt "field:sale.line,gross_unit_price:"
 msgid "Gross Price"
 msgstr "Precio bruto"
 
+msgctxt "field:sale.line,gross_unit_price_wo_round:"
+msgid "Gross Price without rounding"
+msgstr "Precio bruto sin redondeo"
+
+msgctxt "field:sale.line,sale_discount:"
+msgid "Sale Discount"
+msgstr "Descuento por venta"
+
 msgctxt "model:ir.action,name:report_sale"
 msgid "Sale"
 msgstr "Venta"
+
+msgctxt "model:ir.action,name:wizard_apply_sale_discount"
+msgid "Apply Sale Discount"
+msgstr "Aplicar descuento por venta"
+
+msgctxt "model:sale.apply_sale_discount.start,name:"
+msgid "Apply Sale Discount"
+msgstr "Aplicar descuento por venta"
 
 msgctxt "odt:sale.sale.discount:"
 msgid "%"
@@ -90,6 +122,22 @@ msgctxt "odt:sale.sale.discount:"
 msgid "VAT:"
 msgstr "IVA:"
 
+msgctxt "view:sale.apply_sale_discount.start:"
+msgid "%"
+msgstr "%"
+
+msgctxt "view:sale.apply_sale_discount.start:"
+msgid "Apply Sale Discount"
+msgstr "Aplicar descuento por venta"
+
 msgctxt "view:sale.line:"
 msgid "%"
 msgstr "%"
+
+msgctxt "wizard_button:sale.apply_sale_discount,start,apply_discount:"
+msgid "Apply"
+msgstr "Aplicar"
+
+msgctxt "wizard_button:sale.apply_sale_discount,start,end:"
+msgid "Cancel"
+msgstr "Cancel·lar"

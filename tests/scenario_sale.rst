@@ -214,30 +214,83 @@ Sale 5 products testing several on_change calls and avoiding division by zero::
     >>> sale.party = customer
     >>> sale.payment_term = payment_term
     >>> sale.invoice_method = 'order'
-    >>> sale_line = SaleLine()
-    >>> sale.lines.append(sale_line)
+    >>> sale_line = sale.lines.new()
     >>> sale_line.product = product
     >>> sale_line.quantity = 1.0
     >>> sale_line.discount = Decimal('1')
-    >>> sale_line.amount == Decimal('0.0')
-    True
+    >>> sale_line.amount
+    Decimal('0.00')
     >>> sale_line.discount = Decimal('0.12')
-    >>> sale_line.amount == Decimal('8.8')
-    True
+    >>> sale_line.amount
+    Decimal('8.80')
     >>> sale_line.quantity = 2.0
-    >>> sale_line.amount == Decimal('17.6')
-    True
-    >>> sale_line = SaleLine()
-    >>> sale.lines.append(sale_line)
+    >>> sale_line.amount
+    Decimal('17.60')
+    >>> sale_line = sale.lines.new()
     >>> sale_line.type = 'comment'
     >>> sale_line.description = 'Comment'
-    >>> sale_line = SaleLine()
-    >>> sale.lines.append(sale_line)
+    >>> sale_line = sale.lines.new()
     >>> sale_line.product = product
     >>> sale_line.quantity = 3.0
-    >>> sale_line.amount == Decimal(30)
-    True
+    >>> sale_line.amount
+    Decimal('30.00')
+    >>> sale.untaxed_amount
+    Decimal('47.60')
     >>> sale.save()
+    >>> sale_line_w_discount = sale.lines[0]
+    >>> sale_line_w_discount.amount
+    Decimal('17.60')
+    >>> sale_line_wo_discount = sale.lines[2]
+    >>> sale_line_wo_discount.amount
+    Decimal('30.00')
+
+Applying global sale discount::
+
+    >>> sale_discount = Wizard('sale.apply_sale_discount', [sale])
+    >>> sale_discount.form.discount = Decimal('0.15')
+    >>> sale_discount.execute('apply_discount')
+    >>> sale.reload()
+    >>> sale.untaxed_amount
+    Decimal('40.46')
+    >>> sale_line_w_discount.reload()
+    >>> sale_line_w_discount.amount
+    Decimal('14.96')
+    >>> sale_line_wo_discount.reload()
+    >>> sale_line_wo_discount.amount
+    Decimal('25.50')
+
+Remove global sale discount::
+
+    >>> sale_discount = Wizard('sale.apply_sale_discount', [sale])
+    >>> sale_discount.form.discount = Decimal(0)
+    >>> sale_discount.execute('apply_discount')
+    >>> sale.reload()
+    >>> sale.untaxed_amount
+    Decimal('47.60')
+    >>> sale_line_w_discount.reload()
+    >>> sale_line_w_discount.amount
+    Decimal('17.60')
+    >>> sale_line_wo_discount.reload()
+    >>> sale_line_wo_discount.amount
+    Decimal('30.00')
+
+Applying global sale discount::
+
+    >>> sale_discount = Wizard('sale.apply_sale_discount', [sale])
+    >>> sale_discount.form.discount = Decimal('0.10')
+    >>> sale_discount.execute('apply_discount')
+    >>> sale.reload()
+    >>> sale.untaxed_amount
+    Decimal('42.84')
+    >>> sale_line_w_discount.reload()
+    >>> sale_line_w_discount.amount
+    Decimal('15.84')
+    >>> sale_line_wo_discount.reload()
+    >>> sale_line_wo_discount.amount
+    Decimal('27.00')
+
+Process sale::
+
     >>> Sale.quote([sale.id], config.context)
     >>> Sale.confirm([sale.id], config.context)
     >>> Sale.process([sale.id], config.context)
@@ -249,5 +302,6 @@ Sale 5 products testing several on_change calls and avoiding division by zero::
     >>> invoice, = sale.invoices
     >>> invoice.origins == sale.rec_name
     True
-    >>> invoice.untaxed_amount == Decimal('47.6')
-    True
+    >>> invoice.untaxed_amount
+    Decimal('42.84')
+
