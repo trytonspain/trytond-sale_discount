@@ -1,5 +1,6 @@
 <tryton>
     <data>
+        <!-- sale.line -->
         <record model="ir.ui.view" id="sale_line_view_form">
             <field name="model">sale.line</field>
             <field name="type">form</field>
@@ -14,6 +15,13 @@
             <field name="name">sale_line_tree</field>
         </record>
 
+        <!-- sale.sale -->
+        <record model="ir.ui.view" id="sale_view_form">
+            <field name="model">sale.sale</field>
+            <field name="inherit" ref="sale.sale_view_form"/>
+            <field name="name">sale_form</field>
+        </record>
+
         <record model="ir.action.report" id="report_sale">
             <field name="name">Sale</field>
             <field name="model">sale.sale</field>
@@ -23,24 +31,6 @@
         </record>
         <record model="ir.action.keyword" id="sale.report_sale_keyword">
             <field name="action" ref="report_sale"/>
-        </record>
-
-        <!-- sale.apply_sale_discount -->
-        <record model="ir.ui.view" id="apply_sale_discount_start_view_form">
-            <field name="model">sale.apply_sale_discount.start</field>
-            <field name="type">form</field>
-            <field name="name">apply_sale_discount_start_form</field>
-        </record>
-
-        <record model="ir.action.wizard" id="wizard_apply_sale_discount">
-            <field name="name">Apply Sale Discount</field>
-            <field name="wiz_name">sale.apply_sale_discount</field>
-            <field name="model">sale.sale</field>
-        </record>
-        <record model="ir.action.keyword" id="act_wizard_apply_sale_discount_keyword">
-            <field name="keyword">form_action</field>
-            <field name="model">sale.sale,-1</field>
-            <field name="action" ref="wizard_apply_sale_discount"/>
         </record>
     </data>
 </tryton>

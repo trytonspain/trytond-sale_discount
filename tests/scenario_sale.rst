@@ -246,9 +246,8 @@ Sale 5 products testing several on_change calls and avoiding division by zero::
 
 Applying global sale discount::
 
-    >>> sale_discount = Wizard('sale.apply_sale_discount', [sale])
-    >>> sale_discount.form.discount = Decimal('0.15')
-    >>> sale_discount.execute('apply_discount')
+    >>> sale.sale_discount = Decimal('0.15')
+    >>> sale.save()
     >>> sale.reload()
     >>> sale.untaxed_amount
     Decimal('40.46')
@@ -261,9 +260,8 @@ Applying global sale discount::
 
 Remove global sale discount::
 
-    >>> sale_discount = Wizard('sale.apply_sale_discount', [sale])
-    >>> sale_discount.form.discount = Decimal(0)
-    >>> sale_discount.execute('apply_discount')
+    >>> sale.sale_discount = Decimal(0)
+    >>> sale.save()
     >>> sale.reload()
     >>> sale.untaxed_amount
     Decimal('47.60')
@@ -276,9 +274,8 @@ Remove global sale discount::
 
 Applying global sale discount::
 
-    >>> sale_discount = Wizard('sale.apply_sale_discount', [sale])
-    >>> sale_discount.form.discount = Decimal('0.10')
-    >>> sale_discount.execute('apply_discount')
+    >>> sale.sale_discount = Decimal('0.10')
+    >>> sale.save()
     >>> sale.reload()
     >>> sale.untaxed_amount
     Decimal('42.84')
@@ -301,6 +298,31 @@ Process sale::
     (1, 0, 1)
     >>> invoice, = sale.invoices
     >>> invoice.origins == sale.rec_name
+    True
+    >>> invoice.untaxed_amount
+    Decimal('42.84')
+
+Check invoice discounts::
+
+    >>> sale_line_w_discount.reload()
+    >>> invoice_line_w_discount, = sale_line_w_discount.invoice_lines
+    >>> invoice_line_w_discount.gross_unit_price
+    Decimal('10.0000')
+    >>> invoice_line_w_discount.discount
+    Decimal('0.2080')
+    >>> invoice_line_w_discount.amount
+    Decimal('15.84')
+    >>> invoice_line_w_discount.amount == sale_line_w_discount.amount
+    True
+    >>> sale_line_wo_discount.reload()
+    >>> invoice_line_wo_discount, = sale_line_wo_discount.invoice_lines
+    >>> invoice_line_wo_discount.gross_unit_price
+    Decimal('10.0000')
+    >>> invoice_line_wo_discount.discount
+    Decimal('0.10')
+    >>> invoice_line_wo_discount.amount
+    Decimal('27.00')
+    >>> invoice_line_wo_discount.amount == sale_line_wo_discount.amount
     True
     >>> invoice.untaxed_amount
     Decimal('42.84')

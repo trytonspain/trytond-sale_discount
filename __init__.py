@@ -7,13 +7,10 @@ from .move import *
 
 def register():
     Pool.register(
+        Sale,
         SaleLine,
-        ApplySaleDiscountStart,
         Move,
         module='sale_discount', type_='model')
     Pool.register(
         SaleReport,
         module='sale_discount', type_='report')
-    Pool.register(
-        ApplySaleDiscount,
-        module='sale_discount', type_='wizard')

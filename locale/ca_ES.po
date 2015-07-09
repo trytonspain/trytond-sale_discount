@@ -2,22 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:sale.apply_sale_discount:"
-msgid ""
-"You cannot change the applied discount to sale \"%s\" because it isn't in "
-"Draft state."
-msgstr ""
-"No pot canviar el descompte aplicat a la venda \"%s\" perque aquesta no està"
-" en estat borrador."
-
-msgctxt "field:sale.apply_sale_discount.start,discount:"
-msgid "Sale's Global Discount"
-msgstr "Descompte global per venda"
-
-msgctxt "field:sale.apply_sale_discount.start,id:"
-msgid "ID"
-msgstr "Identificador"
-
 msgctxt "field:sale.line,discount:"
 msgid "Discount"
 msgstr "Descompte"
@@ -30,21 +14,19 @@ msgctxt "field:sale.line,gross_unit_price_wo_round:"
 msgid "Gross Price without rounding"
 msgstr "Preu brut sense arrodoniment"
 
-msgctxt "field:sale.line,sale_discount:"
+msgctxt "field:sale.sale,sale_discount:"
 msgid "Sale Discount"
-msgstr "Descompte per venda"
+msgstr "Descompte venda"
+
+msgctxt "help:sale.sale,sale_discount:"
+msgid "This discount will be applied in all lines after their own discount."
+msgstr ""
+"Aquest descompte s'aplicarà a totes les línies després del seu propi "
+"descompte."
 
 msgctxt "model:ir.action,name:report_sale"
 msgid "Sale"
 msgstr "Venda"
-
-msgctxt "model:ir.action,name:wizard_apply_sale_discount"
-msgid "Apply Sale Discount"
-msgstr "Aplica descompte per venda"
-
-msgctxt "model:sale.apply_sale_discount.start,name:"
-msgid "Apply Sale Discount"
-msgstr "Aplica descompte per venda"
 
 msgctxt "odt:sale.sale.discount:"
 msgid "%"
@@ -122,22 +104,14 @@ msgctxt "odt:sale.sale.discount:"
 msgid "VAT:"
 msgstr "IVA:"
 
-msgctxt "view:sale.apply_sale_discount.start:"
+msgctxt "view:account.invoice.line:"
 msgid "%"
 msgstr "%"
-
-msgctxt "view:sale.apply_sale_discount.start:"
-msgid "Apply Sale Discount"
-msgstr "Aplica descompte per venda"
 
 msgctxt "view:sale.line:"
 msgid "%"
 msgstr "%"
 
-msgctxt "wizard_button:sale.apply_sale_discount,start,apply_discount:"
-msgid "Apply"
-msgstr "Aplica"
-
-msgctxt "wizard_button:sale.apply_sale_discount,start,end:"
-msgid "Cancel"
-msgstr "Cancel·la"
+msgctxt "view:sale.sale:"
+msgid "%"
+msgstr "%"
