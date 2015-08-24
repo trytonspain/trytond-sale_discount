@@ -55,11 +55,12 @@ class Sale:
         to_write = []
         for sale in sales_todo:
             for line in sale.lines:
-                new_unit_price = line.update_prices()['unit_price']
-                if new_unit_price != line.unit_price:
-                    to_write.extend(([line], {'unit_price': new_unit_price}))
+                old_unit_price = line.unit_price
+                line.update_prices()
+                if old_unit_price != line.unit_price:
+                    to_write.append(line)
         if to_write:
-            Line.write(*to_write)
+            Line.save(to_write)
 
 
 class SaleLine:
@@ -90,6 +91,7 @@ class SaleLine:
         unit_price = None
         gross_unit_price = gross_unit_price_wo_round = self.gross_unit_price
         sale_discount = Transaction().context.get('sale_discount')
+
         if sale_discount == None:
             sale_discount = (self.sale.sale_discount
                 if self.sale and self.sale.sale_discount else Decimal(0))
@@ -118,11 +120,9 @@ class SaleLine:
             gross_unit_price = gross_unit_price_wo_round.quantize(
                 Decimal(str(10.0 ** -digits)))
 
-        return {
-            'gross_unit_price': gross_unit_price,
-            'gross_unit_price_wo_round': gross_unit_price_wo_round,
-            'unit_price': unit_price,
-            }
+        self.gross_unit_price = gross_unit_price
+        self.gross_unit_price_wo_round = gross_unit_price_wo_round
+        self.unit_price = unit_price
 
     @fields.depends('gross_unit_price', 'discount',
         '_parent_sale.sale_discount')
@@ -142,24 +142,22 @@ class SaleLine:
     def default_sale_discount():
         return Transaction().context.get('sale_discount', Decimal(0))
 
-    @fields.depends('discount', '_parent_sale.sale_discount')
+    @fields.depends('discount', 'unit_price', '_parent_sale.sale_discount')
     def on_change_product(self):
-        res = super(SaleLine, self).on_change_product()
-        if 'unit_price' in res:
-            self.gross_unit_price = res['unit_price']
+        super(SaleLine, self).on_change_product()
+        if self.unit_price:
+            self.gross_unit_price = self.unit_price
             self.discount = Decimal(0)
-            res.update(self.update_prices())
-        if 'discount' not in res:
-            res['discount'] = Decimal(0)
-        return res
+            self.update_prices()
+        if not self.discount:
+            self.discount = Decimal(0)
 
     @fields.depends('discount', '_parent_sale.sale_discount')
     def on_change_quantity(self):
-        res = super(SaleLine, self).on_change_quantity()
-        if 'unit_price' in res:
-            self.gross_unit_price = res['unit_price']
-            res.update(self.update_prices())
-        return res
+        super(SaleLine, self).on_change_quantity()
+        if self.unit_price:
+            self.gross_unit_price = self.unit_price
+            self.update_prices()
 
     def get_invoice_line(self, invoice_type):
         lines = super(SaleLine, self).get_invoice_line(invoice_type)
