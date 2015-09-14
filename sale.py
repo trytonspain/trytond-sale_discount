@@ -152,7 +152,7 @@ class SaleLine:
             self.gross_unit_price = self.unit_price
             self.update_prices()
 
-    @fields.depends('discount', '_parent_sale.sale_discount')
+    @fields.depends('discount', 'unit_price', '_parent_sale.sale_discount')
     def on_change_quantity(self):
         super(SaleLine, self).on_change_quantity()
         self.gross_unit_price = self.unit_price
