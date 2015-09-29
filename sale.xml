@@ -27,7 +27,6 @@
             <field name="model">sale.sale</field>
             <field name="report_name">sale.sale.discount</field>
             <field name="report">sale_discount/sale.odt</field>
-            <field name="style">company/header_A4.odt</field>
         </record>
         <record model="ir.action.keyword" id="sale.report_sale_keyword">
             <field name="action" ref="report_sale"/>
