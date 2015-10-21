@@ -93,8 +93,10 @@ class SaleLine:
         gross_unit_price = gross_unit_price_wo_round = self.gross_unit_price
         sale_discount = Transaction().context.get('sale_discount')
         if sale_discount == None:
-            sale_discount = (self.sale.sale_discount
-                if self.sale and self.sale.sale_discount else Decimal(0))
+            if self.sale and hasattr(self.sale, 'sale_discount'):
+                sale_discount = self.sale.sale_discount or Decimal(0)
+            else:
+                sale_discount = Decimal(0)
         if self.gross_unit_price is not None and (self.discount is not None
                 or sale_discount is not None):
             unit_price = self.gross_unit_price
