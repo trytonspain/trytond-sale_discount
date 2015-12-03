@@ -140,10 +140,6 @@ class SaleLine:
     def on_change_discount(self):
         return self.update_prices()
 
-    @staticmethod
-    def default_sale_discount():
-        return Transaction().context.get('sale_discount', Decimal(0))
-
     @fields.depends('discount', 'unit_price', '_parent_sale.sale_discount')
     def on_change_product(self):
         super(SaleLine, self).on_change_product()
