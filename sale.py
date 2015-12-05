@@ -8,6 +8,7 @@ from trytond.pyson import Eval
 from trytond.transaction import Transaction
 from trytond.modules.sale.sale import SaleReport as OriginalSaleReport
 from trytond.config import config as config_
+from trytond.modules.product import price_digits
 
 __all__ = ['Sale', 'SaleLine', 'SaleReport']
 __metaclass__ = PoolMeta
@@ -16,7 +17,6 @@ STATES = {
     'invisible': Eval('type') != 'line',
     'required': Eval('type') == 'line',
     }
-DIGITS = config_.getint('product', 'price_decimal', default=4)
 DISCOUNT_DIGITS = config_.getint('product', 'discount_decimal', default=4)
 
 
@@ -66,10 +66,10 @@ class Sale:
 class SaleLine:
     __name__ = 'sale.line'
 
-    gross_unit_price = fields.Numeric('Gross Price', digits=(16, DIGITS),
+    gross_unit_price = fields.Numeric('Gross Price', digits=price_digits,
         states=STATES, depends=['type'])
     gross_unit_price_wo_round = fields.Numeric('Gross Price without rounding',
-        digits=(16, DIGITS + DISCOUNT_DIGITS), readonly=True)
+        digits=(16, price_digits[1] + DISCOUNT_DIGITS), readonly=True)
     discount = fields.Numeric('Discount', digits=(16, DISCOUNT_DIGITS),
         states=STATES, depends=['type'])
 
@@ -77,7 +77,7 @@ class SaleLine:
     def __setup__(cls):
         super(SaleLine, cls).__setup__()
         cls.unit_price.states['readonly'] = True
-        cls.unit_price.digits = (20, DIGITS + DISCOUNT_DIGITS)
+        cls.unit_price.digits = (20, price_digits[1] + DISCOUNT_DIGITS)
         if 'discount' not in cls.unit.on_change:
             cls.unit.on_change.add('discount')
         cls.unit.on_change.add('_parent_sale.sale_discount')
