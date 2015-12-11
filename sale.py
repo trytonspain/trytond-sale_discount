@@ -154,7 +154,8 @@ class SaleLine:
     def on_change_quantity(self):
         super(SaleLine, self).on_change_quantity()
         self.gross_unit_price = self.unit_price
-        self.discount = Decimal(0)
+        if not self.discount:
+            self.discount = Decimal(0)
 
         if self.unit_price:
             self.gross_unit_price = self.unit_price
