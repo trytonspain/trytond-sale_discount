@@ -43,17 +43,24 @@ class Sale:
 
     @classmethod
     def write(cls, *args):
-        Line = Pool().get('sale.line')
-
         actions = iter(args)
         sales_todo = []
-        for sales, values in zip(actions, actions):
-            if 'sale_discount' in values:
-                sales_todo.extend(sales)
+        for sales, _ in zip(actions, actions):
+            sales_todo.extend(sales)
         super(Sale, cls).write(*args)
+        cls.apply_discount_to_lines(sales_todo)
 
+    @classmethod
+    def create(cls, vlist):
+        sales = super(Sale, cls).create(vlist)
+        cls.apply_discount_to_lines(sales)
+        return sales
+
+    @classmethod
+    def apply_discount_to_lines(cls, sales):
+        Line = Pool().get('sale.line')
         to_write = []
-        for sale in sales_todo:
+        for sale in sales:
             for line in sale.lines:
                 old_unit_price = line.unit_price
                 line.update_prices()
