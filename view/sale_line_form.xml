@@ -3,8 +3,8 @@
         position="before">
         <label name="gross_unit_price"/>
         <field name="gross_unit_price"/>
-        <group id="discount" colspan="2" col="3">
-            <label name="discount"/>
+    	<label name="discount"/>
+        <group id="discount" col="2">
             <field name="discount" factor="100" xexpand="0" xfill="0"/>
             <label name="discount" string="%" xalign="0.0" xexpand="1" xfill="1"/>
         </group>

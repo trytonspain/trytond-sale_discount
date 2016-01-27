@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/field[@name='formula']" position="after">
+        <label name="discount"/>
+        <group id="discount" col="2">
+            <field name="discount" factor="100" xexpand="0" xfill="0"/>
+            <label name="discount" string="%" xalign="0.0" xexpand="1" xfill="1"/>
+        </group>
+    </xpath>
+</data>

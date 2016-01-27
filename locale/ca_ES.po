@@ -2,6 +2,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:product.price_list.line,discount:"
+msgid "Discount"
+msgstr "Descompte"
+
 msgctxt "field:sale.line,discount:"
 msgid "Discount"
 msgstr "Descompte"
@@ -24,87 +28,87 @@ msgstr ""
 "Aquest descompte s'aplicarà a totes les línies després del seu propi "
 "descompte."
 
+msgctxt "jasper:sale.sale:"
+msgid "Carrier"
+msgstr "Transportista"
+
+msgctxt "jasper:sale.sale:"
+msgid "Date"
+msgstr "Data"
+
+msgctxt "jasper:sale.sale:"
+msgid "Description"
+msgstr "Descripció"
+
+msgctxt "jasper:sale.sale:"
+msgid "Discount"
+msgstr "Descompte"
+
+msgctxt "jasper:sale.sale:"
+msgid "Email"
+msgstr "Email"
+
+msgctxt "jasper:sale.sale:"
+msgid "Fax"
+msgstr "Fax"
+
+msgctxt "jasper:sale.sale:"
+msgid "Mobile"
+msgstr "Mòbil"
+
+msgctxt "jasper:sale.sale:"
+msgid "Payment Term"
+msgstr "Termini pagament"
+
+msgctxt "jasper:sale.sale:"
+msgid "Payment Type"
+msgstr "Tipus de pagament"
+
+msgctxt "jasper:sale.sale:"
+msgid "Phone"
+msgstr "Telèfon"
+
+msgctxt "jasper:sale.sale:"
+msgid "Price"
+msgstr "Preu"
+
+msgctxt "jasper:sale.sale:"
+msgid "Qty"
+msgstr "Qt."
+
+msgctxt "jasper:sale.sale:"
+msgid "Quotation"
+msgstr "Pressupost"
+
+msgctxt "jasper:sale.sale:"
+msgid "Sale Order"
+msgstr "Comanda venda"
+
+msgctxt "jasper:sale.sale:"
+msgid "Shipment Address"
+msgstr "Adreça enviament"
+
+msgctxt "jasper:sale.sale:"
+msgid "Tax"
+msgstr "Imposts"
+
+msgctxt "jasper:sale.sale:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "jasper:sale.sale:"
+msgid "Untaxed"
+msgstr "Base imposable"
+
 msgctxt "model:ir.action,name:report_sale"
 msgid "Sale"
 msgstr "Venda"
 
-msgctxt "odt:sale.sale.discount:"
+msgctxt "view:account.invoice.line:"
 msgid "%"
 msgstr "%"
 
-msgctxt "odt:sale.sale.discount:"
-msgid "Amount"
-msgstr "Import"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Date:"
-msgstr "Data:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Description"
-msgstr "Descripció"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Description:"
-msgstr "Descripció:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Discount"
-msgstr "Descompte"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Draft Sale Order"
-msgstr "Comanda de Venda Esborrany"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "E-Mail:"
-msgstr "Email:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Phone:"
-msgstr "Telèfon:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Quantity"
-msgstr "Quantitat"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Quotation N°:"
-msgstr "Pressupost Nº:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Sale Order N°:"
-msgstr "Venta Nº:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Taxes"
-msgstr "Impostos"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Taxes:"
-msgstr "Impostos:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Total (excl. taxes):"
-msgstr "Total (sense impostos):"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Total:"
-msgstr "Total:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "Unit Price"
-msgstr "Preu unitat"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "VAT Number:"
-msgstr "NIF:"
-
-msgctxt "odt:sale.sale.discount:"
-msgid "VAT:"
-msgstr "IVA:"
-
-msgctxt "view:account.invoice.line:"
+msgctxt "view:product.price_list.line:"
 msgid "%"
 msgstr "%"
 
