@@ -3,7 +3,6 @@
 from trytond.pool import Pool
 from .sale import *
 from .move import *
-from .price_list import *
 
 
 def register():
@@ -11,8 +10,6 @@ def register():
         Sale,
         SaleLine,
         Move,
-        PriceList,
-        PriceListLine,
         module='sale_discount', type_='model')
     Pool.register(
         SaleReport,

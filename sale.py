@@ -79,18 +79,14 @@ class SaleLine:
         super(SaleLine, cls).__setup__()
         cls.unit_price.states['readonly'] = True
         cls.unit_price.digits = (20, DIGITS + DISCOUNT_DIGITS)
-        cls.unit.on_change.add('discount')
+        if 'discount' not in cls.unit.on_change:
+            cls.unit.on_change.add('discount')
         cls.unit.on_change.add('_parent_sale.sale_discount')
-        cls.amount.on_change_with.add('discount')
+        if 'discount' not in cls.amount.on_change_with:
+            cls.amount.on_change_with.add('discount')
         cls.amount.on_change_with.add('_parent_sale.sale_discount')
-        cls.amount.on_change_with.add('gross_unit_price')
-        cls.product.on_change.add('_parent_sale.price_list')
-        cls.product.on_change.add('discount')
-        cls.product.on_change.add('unit_price')
-        cls.product.on_change.add('_parent_sale.sale_discount')
-        cls.quantity.on_change.add('discount')
-        cls.quantity.on_change.add('unit_price')
-        cls.quantity.on_change.add('_parent_sale.sale_discount')
+        if 'gross_unit_price' not in cls.amount.on_change_with:
+            cls.amount.on_change_with.add('gross_unit_price')
 
     def update_prices(self):
         unit_price = None
@@ -150,6 +146,7 @@ class SaleLine:
     def default_sale_discount():
         return Transaction().context.get('sale_discount', Decimal(0))
 
+    @fields.depends('discount', '_parent_sale.sale_discount')
     def on_change_product(self):
         res = super(SaleLine, self).on_change_product()
         if 'unit_price' in res:
@@ -157,30 +154,15 @@ class SaleLine:
             self.discount = Decimal(0)
             res.update(self.update_prices())
         if 'discount' not in res:
-            if hasattr(self, 'sale') and getattr(self.sale, 'price_list', None):
-                discount = self.sale.price_list.compute_discount(
-                    self.sale.party, self.product, self.unit_price,
-                    self.discount, self.quantity, self.unit)
-                if not discount is None:
-                    res['discount'] = discount
-            if self.discount is None:
-                res['discount'] = Decimal(0)
+            res['discount'] = Decimal(0)
         return res
 
+    @fields.depends('discount', '_parent_sale.sale_discount')
     def on_change_quantity(self):
         res = super(SaleLine, self).on_change_quantity()
         if 'unit_price' in res:
             self.gross_unit_price = res['unit_price']
             res.update(self.update_prices())
-        if 'discount' not in res:
-            if hasattr(self, 'sale') and getattr(self.sale, 'price_list', None):
-                discount = self.sale.price_list.compute_discount(
-                    self.sale.party, self.product, self.unit_price,
-                    self.discount, self.quantity, self.unit)
-                if not discount is None:
-                    res['discount'] = discount
-            if self.discount is None:
-                res['discount'] = Decimal(0)
         return res
 
     def get_invoice_line(self, invoice_type):
