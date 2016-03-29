@@ -11,7 +11,6 @@ from trytond.config import config as config_
 from trytond.modules.product import price_digits
 
 __all__ = ['Sale', 'SaleLine', 'SaleReport']
-__metaclass__ = PoolMeta
 
 STATES = {
     'invisible': Eval('type') != 'line',
@@ -21,6 +20,7 @@ DISCOUNT_DIGITS = config_.getint('product', 'discount_decimal', default=4)
 
 
 class Sale:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
     sale_discount = fields.Numeric('Sale Discount',
         digits=(16, DISCOUNT_DIGITS), states={
@@ -71,6 +71,7 @@ class Sale:
 
 
 class SaleLine:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.line'
 
     gross_unit_price = fields.Numeric('Gross Price', digits=price_digits,
@@ -218,4 +219,5 @@ class SaleLine:
 
 
 class SaleReport(OriginalSaleReport):
+    __metaclass__ = PoolMeta
     __name__ = 'sale.sale.discount'

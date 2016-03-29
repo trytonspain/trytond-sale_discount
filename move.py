@@ -7,12 +7,12 @@ from trytond.modules.product import price_digits
 
 
 __all__ = ['Move']
-__metaclass__ = PoolMeta
 
 DISCOUNT_DIGITS = config_.getint('product', 'discount_decimal', default=4)
 
 
 class Move:
+    __metaclass__ = PoolMeta
     __name__ = 'stock.move'
 
     @classmethod
