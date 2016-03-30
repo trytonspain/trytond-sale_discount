@@ -169,8 +169,8 @@ class SaleLine:
             self.gross_unit_price = self.unit_price
             self.update_prices()
 
-    def get_invoice_line(self, invoice_type):
-        lines = super(SaleLine, self).get_invoice_line(invoice_type)
+    def get_invoice_line(self):
+        lines = super(SaleLine, self).get_invoice_line()
         for line in lines:
             line.gross_unit_price = self.gross_unit_price
             discount = Decimal(0)
