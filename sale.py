@@ -7,23 +7,21 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
 from trytond.modules.sale.sale import SaleReport as OriginalSaleReport
-from trytond.config import config as config_
 from trytond.modules.product import price_digits
-
-__all__ = ['Sale', 'SaleLine', 'SaleReport']
+from trytond.modules.account_invoice_discount import discount_digits
+__all__ = ['Sale', 'SaleLine', 'SaleReport', 'discount_digits']
 
 STATES = {
     'invisible': Eval('type') != 'line',
     'required': Eval('type') == 'line',
     }
-DISCOUNT_DIGITS = config_.getint('product', 'discount_decimal', default=4)
 
 
 class Sale:
     __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
     sale_discount = fields.Numeric('Sale Discount',
-        digits=(16, DISCOUNT_DIGITS), states={
+        digits=discount_digits, states={
             'readonly': Eval('state') != 'draft',
             }, depends=['state'],
         help='This discount will be applied in all lines after their own '
@@ -77,15 +75,15 @@ class SaleLine:
     gross_unit_price = fields.Numeric('Gross Price', digits=price_digits,
         states=STATES, depends=['type'])
     gross_unit_price_wo_round = fields.Numeric('Gross Price without rounding',
-        digits=(16, price_digits[1] + DISCOUNT_DIGITS), readonly=True)
-    discount = fields.Numeric('Discount', digits=(16, DISCOUNT_DIGITS),
+        digits=(16, price_digits[1] + discount_digits[1]), readonly=True)
+    discount = fields.Numeric('Discount', digits=discount_digits,
         states=STATES, depends=['type'])
 
     @classmethod
     def __setup__(cls):
         super(SaleLine, cls).__setup__()
         cls.unit_price.states['readonly'] = True
-        cls.unit_price.digits = (20, price_digits[1] + DISCOUNT_DIGITS)
+        cls.unit_price.digits = (20, price_digits[1] + discount_digits[1])
         if 'discount' not in cls.unit.on_change:
             cls.unit.on_change.add('discount')
         cls.unit.on_change.add('_parent_sale.sale_discount')
