@@ -9,7 +9,7 @@ import ConfigParser
 MODULE = 'sale_discount'
 PREFIX = 'trytonspain'
 MODULE2PREFIX = {
-    'account_invoice_discount',
+    'account_invoice_discount': 'trytonspain',
     }
 
 
