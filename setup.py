@@ -13,7 +13,7 @@ except ImportError:
     from ConfigParser import ConfigParser
 
 MODULE2PREFIX = {
-    'account_invoice_discount',
+    'account_invoice_discount': 'trytonspain',
     }
 
 
