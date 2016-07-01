@@ -14,7 +14,7 @@ __all__ = ['Sale', 'SaleLine', 'SaleReport', 'discount_digits']
 STATES = {
     'invisible': Eval('type') != 'line',
     'required': Eval('type') == 'line',
-    'readonly': Eval('sale_state') != 'line',
+    'readonly': Eval('sale_state') != 'draft',
     }
 
 
@@ -74,11 +74,11 @@ class SaleLine:
     __name__ = 'sale.line'
 
     gross_unit_price = fields.Numeric('Gross Price', digits=price_digits,
-        states=STATES, depends=['type'])
+        states=STATES, depends=['type', 'sale_state'])
     gross_unit_price_wo_round = fields.Numeric('Gross Price without rounding',
         digits=(16, price_digits[1] + discount_digits[1]), readonly=True)
     discount = fields.Numeric('Discount', digits=discount_digits,
-        states=STATES, depends=['type'])
+        states=STATES, depends=['type', 'sale_state'])
 
     @classmethod
     def __setup__(cls):
