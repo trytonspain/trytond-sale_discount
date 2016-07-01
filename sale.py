@@ -14,6 +14,7 @@ __all__ = ['Sale', 'SaleLine', 'SaleReport', 'discount_digits']
 STATES = {
     'invisible': Eval('type') != 'line',
     'required': Eval('type') == 'line',
+    'readonly': Eval('sale_state') != 'line',
     }
 
 
