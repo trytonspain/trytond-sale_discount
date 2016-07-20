@@ -82,8 +82,6 @@ class SaleLine:
     @classmethod
     def __setup__(cls):
         super(SaleLine, cls).__setup__()
-        cls._allow_modify_after_draft |= {'gross_unit_price', 'unit_price',
-            'gross_unit_price_wo_round'}
         cls.unit_price.states['readonly'] = True
         cls.unit_price.digits = (20, price_digits[1] + discount_digits[1])
         if 'discount' not in cls.unit.on_change:
