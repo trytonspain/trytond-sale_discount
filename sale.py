@@ -68,6 +68,13 @@ class Sale:
         if to_write:
             Line.save(to_write)
 
+    def get_shipment_cost_line(self, cost):
+        # add gross unit price in sale shipment cost line
+        cost_line = super(Sale, self).get_shipment_cost_line(cost)
+        cost_line.gross_unit_price = cost
+        cost_line.update_prices()
+        return cost_line
+
 
 class SaleLine:
     __metaclass__ = PoolMeta
