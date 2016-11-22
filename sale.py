@@ -101,12 +101,18 @@ class SaleLine:
         if 'gross_unit_price' not in cls.amount.on_change_with:
             cls.amount.on_change_with.add('gross_unit_price')
 
+    @property
+    def has_promotion(self):
+        return (hasattr(self, 'promotion')
+                and self.promotion
+                and self.draft_unit_price)
+
     def update_prices(self):
         unit_price = None
         gross_unit_price = gross_unit_price_wo_round = self.gross_unit_price
         sale_discount = Transaction().context.get('sale_discount')
 
-        if sale_discount == None:
+        if sale_discount is None:
             if self.sale and hasattr(self.sale, 'sale_discount'):
                 sale_discount = self.sale.sale_discount or Decimal(0)
             else:
@@ -114,6 +120,8 @@ class SaleLine:
         if self.gross_unit_price is not None and (self.discount is not None
                 or sale_discount is not None):
             unit_price = self.gross_unit_price
+            if self.has_promotion:
+                unit_price = self.draft_unit_price
             if self.discount:
                 unit_price *= (1 - self.discount)
             if sale_discount:
@@ -138,7 +146,10 @@ class SaleLine:
 
         self.gross_unit_price = gross_unit_price
         self.gross_unit_price_wo_round = gross_unit_price_wo_round
-        self.unit_price = unit_price
+        if self.has_promotion:
+            self.draft_unit_price = unit_price
+        else:
+            self.unit_price = unit_price
 
     @fields.depends('gross_unit_price', 'discount',
         '_parent_sale.sale_discount')
