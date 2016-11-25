@@ -161,7 +161,6 @@ class SaleLine:
         self.discount = Decimal(0)
 
         if self.unit_price:
-            self.gross_unit_price = self.unit_price
             self.update_prices()
 
     @fields.depends('discount', 'unit_price', '_parent_sale.sale_discount')
