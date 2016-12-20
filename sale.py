@@ -98,6 +98,8 @@ class SaleLine(DiscountMixin):
     def on_change_product(self):
         super(SaleLine, self).on_change_product()
         self.gross_unit_price = self.unit_price
+        if self.discount is None:
+            self.discount = Decimal(0)
         self.set_unit_price_from_gross_unit_price(self.gross_unit_price)
 
     @fields.depends('discount', 'unit_price', '_parent_sale.sale_discount',
