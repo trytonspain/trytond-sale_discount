@@ -156,7 +156,6 @@ Sale 5 products testing several on_change calls and avoiding division by zero::
     >>> sale_line.amount
     Decimal('0.00')
     >>> sale_line.discount = Decimal('0.12')
-    >>> sale_line.gross_unit_price = Decimal('10.00')
     >>> sale_line.amount
     Decimal('8.80')
     >>> sale_line.quantity = 2.0
@@ -183,44 +182,50 @@ Sale 5 products testing several on_change calls and avoiding division by zero::
 Applying global sale discount::
 
     >>> sale.sale_discount = Decimal('0.15')
+    >>> sale.save()
+    >>> sale.reload()
     >>> sale.untaxed_amount
     Decimal('40.46')
-    >>> sale_line_w_discount = sale.lines[0]
+    >>> sale_line_w_discount.reload()
     >>> sale_line_w_discount.amount
     Decimal('14.96')
-    >>> sale_line_wo_discount = sale.lines[2]
+    >>> sale_line_wo_discount.reload()
     >>> sale_line_wo_discount.amount
     Decimal('25.50')
 
 Remove global sale discount::
 
     >>> sale.sale_discount = Decimal(0)
+    >>> sale.save()
+    >>> sale.reload()
     >>> sale.untaxed_amount
     Decimal('47.60')
-    >>> sale_line_w_discount = sale.lines[0]
+    >>> sale_line_w_discount.reload()
     >>> sale_line_w_discount.amount
     Decimal('17.60')
-    >>> sale_line_wo_discount = sale.lines[2]
+    >>> sale_line_wo_discount.reload()
     >>> sale_line_wo_discount.amount
     Decimal('30.00')
 
 Applying global sale discount::
 
     >>> sale.sale_discount = Decimal('0.10')
+    >>> sale.save()
+    >>> sale.reload()
     >>> sale.untaxed_amount
     Decimal('42.84')
-    >>> sale_line_w_discount = sale.lines[0]
+    >>> sale_line_w_discount.reload()
     >>> sale_line_w_discount.amount
     Decimal('15.84')
-    >>> sale_line_wo_discount = sale.lines[2]
+    >>> sale_line_wo_discount.reload()
     >>> sale_line_wo_discount.amount
     Decimal('27.00')
 
 Process sale::
 
-    >>> sale.click('quote')
-    >>> sale.click('confirm')
-    >>> sale.click('process')
+    >>> Sale.quote([sale.id], config.context)
+    >>> Sale.confirm([sale.id], config.context)
+    >>> Sale.process([sale.id], config.context)
     >>> sale.state
     u'processing'
     >>> sale.reload()
@@ -256,3 +261,4 @@ Check invoice discounts::
     True
     >>> invoice.untaxed_amount
     Decimal('42.84')
+
