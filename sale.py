@@ -169,8 +169,8 @@ class SaleLine:
     def on_change_product(self):
         super(SaleLine, self).on_change_product()
         self.gross_unit_price = self.unit_price
-        self.discount = Decimal(0)
-
+        if self.discount is None:
+            self.discount = Decimal(0)
         if self.unit_price:
             self.update_prices()
 
