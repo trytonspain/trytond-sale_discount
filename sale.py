@@ -170,7 +170,6 @@ class SaleLine:
             self.discount = Decimal(0)
 
         if self.unit_price:
-            self.gross_unit_price = self.unit_price
             self.update_prices()
 
     def get_invoice_line(self):
