@@ -62,8 +62,10 @@ class Sale:
         for sale in sales:
             for line in sale.lines:
                 old_unit_price = line.unit_price
+                old_discount = line.discount
                 line.update_prices()
-                if old_unit_price != line.unit_price:
+                if (old_unit_price != line.unit_price
+                        or old_discount != line.discount):
                     to_write.append(line)
         if to_write:
             Line.save(to_write)
