@@ -47,12 +47,14 @@ class Sale:
         for sales, _ in zip(actions, actions):
             sales_todo.extend(sales)
         super(Sale, cls).write(*args)
-        cls.apply_discount_to_lines(sales_todo)
+        if Transaction().context.get('apply_discount_to_lines', True):
+            cls.apply_discount_to_lines(sales_todo)
 
     @classmethod
     def create(cls, vlist):
         sales = super(Sale, cls).create(vlist)
-        cls.apply_discount_to_lines(sales)
+        if Transaction().context.get('apply_discount_to_lines', True):
+            cls.apply_discount_to_lines(sales)
         return sales
 
     @classmethod
