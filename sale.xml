@@ -26,7 +26,8 @@
             <field name="name">Sale</field>
             <field name="model">sale.sale</field>
             <field name="report_name">sale.sale.discount</field>
-            <field name="report">sale_discount/sale.odt</field>
+            <field name="report">sale_discount/sale.fodt</field>
+            <field name="single" eval="True"/>
         </record>
         <record model="ir.action.keyword" id="sale.report_sale_keyword">
             <field name="action" ref="report_sale"/>
