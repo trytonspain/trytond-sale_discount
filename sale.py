@@ -8,7 +8,8 @@ from trytond.pyson import Eval
 from trytond.transaction import Transaction
 from trytond.modules.sale.sale import SaleReport as OriginalSaleReport
 from trytond.modules.product import price_digits
-from trytond.modules.account_invoice_discount import discount_digits
+from trytond.modules.account_invoice_discount.invoice import discount_digits
+
 __all__ = ['Sale', 'SaleLine', 'SaleReport', 'discount_digits']
 
 STATES = {

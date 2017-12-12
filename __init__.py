@@ -1,16 +1,16 @@
 #The COPYRIGHT file at the top level of this repository contains the full
 #copyright notices and license terms.
 from trytond.pool import Pool
-from .sale import *
-from .move import *
+from . import sale
+from . import move
 
 
 def register():
     Pool.register(
-        Sale,
-        SaleLine,
-        Move,
+        sale.Sale,
+        sale.SaleLine,
+        move.Move,
         module='sale_discount', type_='model')
     Pool.register(
-        SaleReport,
+        sale.SaleReport,
         module='sale_discount', type_='report')
