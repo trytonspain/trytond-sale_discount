@@ -49,17 +49,19 @@ Create products::
     >>> template.salable = True
     >>> template.lead_time = datetime.timedelta(0)
     >>> template.list_price = Decimal('20')
-    >>> template.cost_price = Decimal('8')
     >>> template.account_revenue = revenue
     >>> template.save()
     >>> product1 = Product()
     >>> product1.template = template
+    >>> product1.cost_price = Decimal('8')
     >>> product1.save()
     >>> product2 = Product()
     >>> product2.template = template
+    >>> product2.cost_price = Decimal('8')
     >>> product2.save()
     >>> product3 = Product()
     >>> product3.template = template
+    >>> product3.cost_price = Decimal('8')
     >>> product3.save()
 
 Create payment term::
