@@ -157,7 +157,7 @@ class SaleLine:
             self.unit_price = unit_price
 
     @fields.depends('gross_unit_price', 'discount',
-        '_parent_sale.sale_discount')
+        '_parent_sale.sale_discount', 'sale')
     def on_change_gross_unit_price(self):
         return self.update_prices()
 
@@ -166,7 +166,7 @@ class SaleLine:
         return Decimal(0)
 
     @fields.depends('gross_unit_price', 'discount',
-        '_parent_sale.sale_discount')
+        '_parent_sale.sale_discount', 'sale')
     def on_change_discount(self):
         return self.update_prices()
 
