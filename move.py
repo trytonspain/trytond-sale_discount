@@ -11,8 +11,7 @@ __all__ = ['Move']
 DISCOUNT_DIGITS = config_.getint('product', 'discount_decimal', default=4)
 
 
-class Move:
-    __metaclass__ = PoolMeta
+class Move(metaclass=PoolMeta):
     __name__ = 'stock.move'
 
     @classmethod

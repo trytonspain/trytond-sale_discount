@@ -19,8 +19,7 @@ STATES = {
     }
 
 
-class Sale:
-    __metaclass__ = PoolMeta
+class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
     sale_discount = fields.Numeric('Sale Discount',
         digits=discount_digits, states={
@@ -81,8 +80,7 @@ class Sale:
         return cost_line
 
 
-class SaleLine:
-    __metaclass__ = PoolMeta
+class SaleLine(metaclass=PoolMeta):
     __name__ = 'sale.line'
 
     gross_unit_price = fields.Numeric('Gross Price', digits=price_digits,
@@ -238,6 +236,5 @@ class SaleLine:
         return super(SaleLine, cls).create(vlist)
 
 
-class SaleReport(OriginalSaleReport):
-    __metaclass__ = PoolMeta
+class SaleReport(OriginalSaleReport, metaclass=PoolMeta):
     __name__ = 'sale.sale.discount'

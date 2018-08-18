@@ -139,7 +139,7 @@ Create an Inventory::
     >>> inventory_line.save()
     >>> Inventory.confirm([inventory.id], config.context)
     >>> inventory.state
-    u'done'
+    'done'
 
 Sale 5 products testing several on_change calls and avoiding division by zero::
 
@@ -228,7 +228,7 @@ Process sale::
     >>> Sale.confirm([sale.id], config.context)
     >>> Sale.process([sale.id], config.context)
     >>> sale.state
-    u'processing'
+    'processing'
     >>> sale.reload()
     >>> len(sale.shipments), len(sale.shipment_returns), len(sale.invoices)
     (1, 0, 1)
