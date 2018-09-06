@@ -224,9 +224,9 @@ Applying global sale discount::
 
 Process sale::
 
-    >>> Sale.quote([sale.id], config.context)
-    >>> Sale.confirm([sale.id], config.context)
-    >>> Sale.process([sale.id], config.context)
+    >>> sale.click('quote')
+    >>> sale.click('confirm')
+    >>> sale.click('process')
     >>> sale.state
     'processing'
     >>> sale.reload()
