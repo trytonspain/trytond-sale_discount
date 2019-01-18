@@ -141,9 +141,12 @@ class SaleLine(metaclass=PoolMeta):
                 gross_unit_price_wo_round = unit_price / (1 - sale_discount)
 
             digits = self.__class__.unit_price.digits[1]
+            gup_wo_r_digits = self.__class__.gross_unit_price_wo_round.digits[1]
             unit_price = unit_price.quantize(Decimal(str(10.0 ** -digits)))
 
             digits = self.__class__.gross_unit_price.digits[1]
+            gross_unit_price_wo_round = gross_unit_price_wo_round.quantize(
+                Decimal(str(10.0 ** -gup_wo_r_digits)))
             gross_unit_price = gross_unit_price_wo_round.quantize(
                 Decimal(str(10.0 ** -digits)))
 
