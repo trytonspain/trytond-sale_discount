@@ -191,6 +191,9 @@ class SaleLine(metaclass=PoolMeta):
             self.update_prices()
 
     def get_invoice_line(self):
+        pool = Pool()
+        InvoiceLine = pool.get('account.invoice.line')
+        digits = InvoiceLine.discount.digits[1]
         lines = super(SaleLine, self).get_invoice_line()
         for line in lines:
             line.gross_unit_price = self.gross_unit_price
@@ -199,12 +202,11 @@ class SaleLine(metaclass=PoolMeta):
                 discount = (Decimal('1.0')
                     - (Decimal('1.0') - self.discount)
                     * (Decimal('1.0') - self.sale.sale_discount))
-                pass
             elif self.sale and self.sale.sale_discount:
                 discount = self.sale.sale_discount
             elif self.discount:
                 discount = self.discount
-            line.discount = discount
+            line.discount = discount.quantize(Decimal(str(10.0 ** -digits)))
         return lines
 
     @classmethod
