@@ -1,0 +1,117 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.line,discount:"
+msgid "Discount"
+msgstr "Descuento"
+
+msgctxt "field:sale.line,gross_unit_price:"
+msgid "Gross Price"
+msgstr "Precio bruto"
+
+msgctxt "field:sale.line,gross_unit_price_wo_round:"
+msgid "Gross Price without rounding"
+msgstr "Precio bruto sin redondeo"
+
+msgctxt "field:sale.sale,sale_discount:"
+msgid "Sale Discount"
+msgstr "Descuento venta"
+
+msgctxt "help:sale.sale,sale_discount:"
+msgid "This discount will be applied in all lines after their own discount."
+msgstr ""
+"Este descuento se aplicará a todas las líneas después de su propio "
+"descuento."
+
+msgctxt "model:ir.action,name:report_sale"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "report:sale.sale.discount:"
+msgid "%"
+msgstr "%"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Date:"
+msgstr "Fecha:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Description:"
+msgstr "Descripción:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Discount"
+msgstr "Descuento"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Draft Sale Order"
+msgstr "Ventas borrador"
+
+msgctxt "report:sale.sale.discount:"
+msgid "E-Mail:"
+msgstr "Correo electrónico:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Phone:"
+msgstr "Teléfono:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Quotation N°:"
+msgstr "Presupuesto Nº:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Sale Order N°:"
+msgstr "Venta Nº:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Taxes"
+msgstr "Impuestos"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Taxes:"
+msgstr "Impuestos:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Total (excl. taxes):"
+msgstr "Total (sin impuestos):"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Total:"
+msgstr "Total:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "Unit Price"
+msgstr "Precio unidad"
+
+msgctxt "report:sale.sale.discount:"
+msgid "VAT Number:"
+msgstr "NIF:"
+
+msgctxt "report:sale.sale.discount:"
+msgid "VAT:"
+msgstr "IVA:"
+
+msgctxt "view:account.invoice.line:"
+msgid "%"
+msgstr "%"
+
+msgctxt "view:sale.line:"
+msgid "%"
+msgstr "%"
+
+msgctxt "view:sale.sale:"
+msgid "%"
+msgstr "%"
