@@ -254,7 +254,7 @@ Check invoice discounts::
     >>> invoice_line_wo_discount.gross_unit_price
     Decimal('10.0000')
     >>> invoice_line_wo_discount.discount
-    Decimal('0.10')
+    Decimal('0.1000')
     >>> invoice_line_wo_discount.amount
     Decimal('27.00')
     >>> invoice_line_wo_discount.amount == sale_line_wo_discount.amount
