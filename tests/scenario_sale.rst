@@ -226,7 +226,6 @@ Process sale::
 
     >>> sale.click('quote')
     >>> sale.click('confirm')
-    >>> sale.click('process')
     >>> sale.state
     'processing'
     >>> sale.reload()
