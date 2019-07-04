@@ -23,6 +23,9 @@ copyright notices and license terms. -->
             <field name="name">sale_form</field>
         </record>
 
+        <record model="ir.action.report" id="sale.report_sale">
+            <field name="active" eval="False"/>
+        </record>
         <record model="ir.action.report" id="report_sale">
             <field name="name">Sale</field>
             <field name="model">sale.sale</field>
