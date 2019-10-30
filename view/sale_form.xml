@@ -4,7 +4,7 @@ The COPYRIGHT file at the top level of this repository contains the full
 copyright notices and license terms. -->
 <data>
     <xpath
-        expr="/form/notebook/page[@id=&quot;sale&quot;]/group[@id=&quot;amount_buttons&quot;]/label[@name=&quot;untaxed_amount&quot;]"
+        expr="/form/notebook/page[@id='sale']/group[@id='amount']/label[@name='total_amount']"
         position="before">
         <group id="sale_discount" colspan="2" col="3" xexpand="0">
             <label name="sale_discount" xalign="1.0" xexpand="1"/>
