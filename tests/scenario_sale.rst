@@ -150,25 +150,25 @@ Sale 5 products testing several on_change calls and avoiding division by zero::
     >>> sale_line.product = product
     >>> sale_line.quantity = 1.0
     >>> sale_line.discount = Decimal('1')
-    >>> sale_line.amount
-    Decimal('0.00')
+    >>> sale_line.unit_price == Decimal('0.00')
+    True
     >>> sale_line.discount = Decimal('0.12')
-    >>> sale_line.amount
-    Decimal('8.80')
+    >>> sale_line.unit_price == Decimal('8.80')
+    True
     >>> sale_line.quantity = 2.0
-    >>> sale_line.amount
-    Decimal('17.60')
+    >>> sale_line.amount == Decimal('17.60')
+    True
     >>> sale_line = sale.lines.new()
     >>> sale_line.type = 'comment'
     >>> sale_line.description = 'Comment'
     >>> sale_line = sale.lines.new()
     >>> sale_line.product = product
     >>> sale_line.quantity = 3.0
-    >>> sale_line.amount
-    Decimal('30.00')
+    >>> sale_line.amount == Decimal('30.00')
+    True
+    >>> sale.save()
     >>> sale.untaxed_amount
     Decimal('47.60')
-    >>> sale.save()
     >>> sale_line_w_discount = sale.lines[0]
     >>> sale_line_w_discount.amount
     Decimal('17.60')
