@@ -11,6 +11,3 @@ def register():
         sale.SaleLine,
         move.Move,
         module='sale_discount', type_='model')
-    Pool.register(
-        sale.SaleReport,
-        module='sale_discount', type_='report')

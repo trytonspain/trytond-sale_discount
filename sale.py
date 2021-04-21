@@ -6,11 +6,10 @@ from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
-from trytond.modules.sale.sale import SaleReport as OriginalSaleReport
 from trytond.modules.product import price_digits
 from trytond.modules.account_invoice_discount.invoice import discount_digits
 
-__all__ = ['Sale', 'SaleLine', 'SaleReport', 'discount_digits']
+__all__ = ['Sale', 'SaleLine', 'discount_digits']
 
 STATES = {
     'invisible': Eval('type') != 'line',
@@ -104,6 +103,10 @@ class SaleLine(metaclass=PoolMeta):
         if 'gross_unit_price' not in cls.amount.on_change_with:
             cls.amount.on_change_with.add('gross_unit_price')
 
+    @staticmethod
+    def default_discount():
+        return Decimal(0)
+
     @property
     def has_promotion(self):
         return (hasattr(self, 'promotion')
@@ -161,10 +164,6 @@ class SaleLine(metaclass=PoolMeta):
         '_parent_sale.sale_discount', 'sale')
     def on_change_gross_unit_price(self):
         return self.update_prices()
-
-    @staticmethod
-    def default_discount():
-        return Decimal(0)
 
     @fields.depends('gross_unit_price', 'discount',
         '_parent_sale.sale_discount', 'sale')
@@ -239,7 +238,3 @@ class SaleLine(metaclass=PoolMeta):
             if not vals.get('discount'):
                 vals['discount'] = Decimal(0)
         return super(SaleLine, cls).create(vlist)
-
-
-class SaleReport(OriginalSaleReport, metaclass=PoolMeta):
-    __name__ = 'sale.sale.discount'
